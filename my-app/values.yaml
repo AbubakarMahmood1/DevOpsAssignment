@@ -1,0 +1,45 @@
+replicaCount:
+  frontend: 2
+  backend: 2
+
+resources:
+  frontend:
+    limits:
+      cpu: "0.5"
+      memory: "512Mi"
+    requests:
+      cpu: "0.2"
+      memory: "256Mi"
+  backend:
+    limits:
+      cpu: "0.5"
+      memory: "512Mi"
+    requests:
+      cpu: "0.2"
+      memory: "256Mi"
+
+images:
+  frontend: abubakarmahmood1999/frontend
+  backend: abubakarmahmood1999/backend
+  mongo: mongo:5.0
+
+config:
+  appEnv: "production"
+  backendPort: "80"
+  frontendPort: "80"
+  dbHost: "mongo-service"
+  dbPort: "27017"
+
+secrets:
+  dbUsername: "admin"
+  dbPassword: "password"
+  dbName: "app_db"
+
+mongo:
+  storageSize: "5Gi"
+
+ingress:
+  enabled: true
+  host: "example.com"
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: "/"

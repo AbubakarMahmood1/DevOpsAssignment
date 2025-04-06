@@ -1,0 +1,25 @@
+replicaCount:
+  frontend: 3
+  backend: 3
+
+resources:
+  frontend:
+    limits:
+      cpu: "1"
+      memory: "1024Mi"
+    requests:
+      cpu: "0.5"
+      memory: "512Mi"
+  backend:
+    limits:
+      cpu: "1"
+      memory: "1024Mi"
+    requests:
+      cpu: "0.5"
+      memory: "512Mi"
+
+mongo:
+  storageSize: "10Gi"
+
+ingress:
+  host: "example.com"

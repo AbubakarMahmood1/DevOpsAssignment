@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  APP_ENV: "development"
+  BACKEND_PORT: "80"
+  FRONTEND_PORT: "80"
+  DB_HOST: "mongo-service"
+  DB_PORT: "27017"  # MongoDB default port
