@@ -4,23 +4,24 @@ import axios from 'axios';
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [task, setTask] = useState('');
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'; // Use env var
 
   // Fetch all todos on component mount
   useEffect(() => {
-    axios.get('http://localhost:5000/todos')
+    axios.get(`${backendUrl}/todos`)
       .then(response => {
         setTodos(response.data);
       })
       .catch(error => {
         console.error('There was an error fetching the todos!', error);
       });
-  }, []);
+  }, [backendUrl]);
 
   // Create a new todo
   const addTodo = async () => {
     if (task) {
       try {
-        const response = await axios.post('http://localhost:5000/todos', { task });
+        const response = await axios.post(`${backendUrl}/todos`, { task });
         setTodos([...todos, response.data]);
         setTask('');
       } catch (error) {
@@ -32,7 +33,7 @@ const TodoList = () => {
   // Toggle completion status of todo
   const toggleComplete = async (id, completed) => {
     try {
-      const response = await axios.put(`http://localhost:5000/todos/${id}`, { completed: !completed });
+      const response = await axios.put(`${backendUrl}/todos/${id}`, { completed: !completed });
       setTodos(todos.map(todo => todo._id === id ? response.data : todo));
     } catch (error) {
       console.error('There was an error updating the todo!', error);
@@ -42,7 +43,7 @@ const TodoList = () => {
   // Delete a todo
   const deleteTodo = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/todos/${id}`);
+      await axios.delete(`${backendUrl}/todos/${id}`);
       setTodos(todos.filter(todo => todo._id !== id));
     } catch (error) {
       console.error('There was an error deleting the todo!', error);

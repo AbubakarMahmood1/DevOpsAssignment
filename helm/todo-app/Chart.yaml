@@ -1,0 +1,4 @@
+apiVersion: v2
+name: todo-app
+description: A Helm chart for the To-Do List application
+version: 0.1.0

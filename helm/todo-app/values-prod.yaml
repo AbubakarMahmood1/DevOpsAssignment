@@ -1,0 +1,35 @@
+namespace: prod
+backend:
+  name: backend
+  replicas: 2
+  image:
+    repository: abubakarmahmood1999/backend
+    tag: "0.0.1"
+  port: 5000
+  servicePort: 5000
+  mongoUri: "mongodb+srv://<your-atlas-uri>"
+  resources:
+    limits:
+      cpu: "0.5"
+      memory: "512Mi"
+    requests:
+      cpu: "0.3"
+      memory: "256Mi"
+frontend:
+  name: frontend
+  replicas: 2
+  image:
+    repository: abubakarmahmood1999/frontend
+    tag: "0.0.1"
+  port: 80
+  servicePort: 80
+  backendUrl: "http://backend:5000"
+  resources:
+    limits:
+      cpu: "0.5"
+      memory: "512Mi"
+    requests:
+      cpu: "0.3"
+      memory: "256Mi"
+ingress:
+  host: prod.myapp.local

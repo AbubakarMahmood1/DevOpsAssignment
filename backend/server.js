@@ -11,8 +11,13 @@ const port = 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// MongoDB URI
-const mongoURI = 'mongodb+srv://f219462:Oxje3dcOEJMizPRz@cluster0.0di5q.mongodb.net/ToDo?retryWrites=true&w=majority&appName=Cluster0';
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
+// MongoDB URI from environment variable
+const mongoURI = process.env.MONGO_URI || 'mongodb+srv://f219462:Oxje3dcOEJMizPRz@cluster0.0di5q.mongodb.net/ToDo?retryWrites=true&w=majority&appName=Cluster0';
 
 // Connect to MongoDB
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })

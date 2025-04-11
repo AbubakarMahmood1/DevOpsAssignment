@@ -4,7 +4,7 @@ metadata:
   name: frontend
   namespace: dev
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: frontend
@@ -15,41 +15,30 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: abubakarmahmood1999/frontend
+        image: abubakarmahmood1999/frontend:0.0.1
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
-        envFrom:
-        - configMapRef:
-            name: app-config
+        env:
+        - name: REACT_APP_BACKEND_URL
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: BACKEND_URL
         resources:
           limits:
-            cpu: "0.5"
-            memory: "512Mi"
-          requests:
             cpu: "0.2"
             memory: "256Mi"
+          requests:
+            cpu: "0.1"
+            memory: "128Mi"
         livenessProbe:
-          httpGet:
-            path: /
+          tcpSocket:
             port: 80
           initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
-          httpGet:
-            path: /
+          tcpSocket:
             port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 5
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: frontend-service
-  namespace: dev
-spec:
-  selector:
-    app: frontend
-  ports:
-  - port: 80
-    targetPort: 80
-  type: ClusterIP
+          initialDelaySeconds: 30
+          periodSeconds: 10
