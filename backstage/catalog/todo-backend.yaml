@@ -1,0 +1,21 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: todo-backend
+  description: Todo Application Backend API
+  annotations:
+    github.com/project-slug: AbubakarMahmood1/todo-app
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - nodejs
+    - express
+    - api
+spec:
+  type: service
+  lifecycle: production
+  owner: user:default/admin
+  system: todo-application
+  providesApis:
+    - todo-api
+  dependsOn:
+    - resource:default/mongodb

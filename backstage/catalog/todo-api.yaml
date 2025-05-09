@@ -1,0 +1,62 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: todo-api
+  description: Todo Application REST API
+spec:
+  type: openapi
+  lifecycle: production
+  owner: user:default/admin
+  definition:
+    $text: |
+      openapi: 3.0.0
+      info:
+        title: Todo API
+        version: 1.0.0
+        description: API for managing todo items
+      paths:
+        /todos:
+          get:
+            summary: Get all todo items
+            responses:
+              '200':
+                description: List of todo items
+          post:
+            summary: Create a new todo item
+            responses:
+              '201':
+                description: Todo item created
+        /todos/{id}:
+          get:
+            summary: Get a specific todo item
+            parameters:
+              - name: id
+                in: path
+                required: true
+                schema:
+                  type: string
+            responses:
+              '200':
+                description: Todo item
+          put:
+            summary: Update a todo item
+            parameters:
+              - name: id
+                in: path
+                required: true
+                schema:
+                  type: string
+            responses:
+              '200':
+                description: Updated todo item
+          delete:
+            summary: Delete a todo item
+            parameters:
+              - name: id
+                in: path
+                required: true
+                schema:
+                  type: string
+            responses:
+              '200':
+                description: Todo item deleted

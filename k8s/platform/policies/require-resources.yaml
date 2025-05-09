@@ -1,0 +1,55 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: k8srequiredresources
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sRequiredResources
+      validation:
+        openAPIV3Schema:
+          properties:
+            limits:
+              type: array
+              items:
+                type: string
+            requests:
+              type: array
+              items:
+                type: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8srequiredresources
+
+        violation[{"msg": msg}] {
+          container := input.review.object.spec.template.spec.containers[_]
+          resourceFieldName := input.parameters.limits[_]
+          not container.resources.limits[resourceFieldName]
+          msg := sprintf("container <%v> does not have required limits: %v", [container.name, resourceFieldName])
+        }
+
+        violation[{"msg": msg}] {
+          container := input.review.object.spec.template.spec.containers[_]
+          resourceFieldName := input.parameters.requests[_]
+          not container.resources.requests[resourceFieldName]
+          msg := sprintf("container <%v> does not have required requests: %v", [container.name, resourceFieldName])
+        }
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredResources
+metadata:
+  name: require-cpu-memory-limits
+spec:
+  match:
+    kinds:
+      - apiGroups: ["apps"]
+        kinds: ["Deployment"]
+  parameters:
+    limits:
+      - cpu
+      - memory
+    requests:
+      - cpu
+      - memory

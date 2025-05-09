@@ -12,12 +12,17 @@ spec:
     metadata:
       labels:
         app: backend
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9464"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
       - name: backend
         image: abubakarmahmood1999/backend:0.0.1
         ports:
         - containerPort: 5000
+        - containerPort: 9464
         env:
         - name: MONGO_URI
           valueFrom:
@@ -29,6 +34,10 @@ spec:
             configMapKeyRef:
               name: app-config
               key: NODE_ENV
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: "http://otel-collector.monitoring.svc.cluster.local:4318"
+        - name: OTEL_SERVICE_NAME
+          value: "todo-backend"
         resources:
           limits:
             cpu: "0.5"

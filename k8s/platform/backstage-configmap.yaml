@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backstage-config
+  namespace: platform
+data:
+  app-config.yaml: |
+    app:
+      title: Todo Platform
+      baseUrl: http://backstage.platform.svc.cluster.local
+    backend:
+      baseUrl: http://backstage.platform.svc.cluster.local
+      listen:
+        port: 7007
+    catalog:
+      locations:
+        - type: url
+          target: https://github.com/AbubakarMahmood1/todo-app/blob/main/backstage/catalog/todo-frontend.yaml
+        - type: url
+          target: https://github.com/AbubakarMahmood1/todo-app/blob/main/backstage/catalog/todo-backend.yaml
+        - type: url
+          target: https://github.com/AbubakarMahmood1/todo-app/blob/main/backstage/catalog/todo-api.yaml
+        - type: url
+          target: https://github.com/AbubakarMahmood1/todo-app/blob/main/backstage/catalog/mongodb-resource.yaml

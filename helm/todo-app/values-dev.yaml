@@ -7,7 +7,7 @@ backend:
     tag: "0.0.1"
   port: 5000
   servicePort: 5000
-  mongoUri: "mongodb+srv://<your-atlas-uri>"
+  mongoUri: "mongodb+srv://f219462:Oxje3dcOEJMizPRz@cluster0.0di5q.mongodb.net/ToDo?retryWrites=true&w=majority&appName=Cluster0"
   resources:
     limits:
       cpu: "0.2"
