@@ -15,10 +15,10 @@ data:
     catalog:
       locations:
         - type: url
-          target: https://github.com/AbubakarMahmood1/todo-app/blob/main/backstage/catalog/todo-frontend.yaml
+          target: https://github.com/AbubakarMahmood1/DevOpsAssignment/tree/main/backstage/catalog/todo-frontend.yaml
         - type: url
-          target: https://github.com/AbubakarMahmood1/todo-app/blob/main/backstage/catalog/todo-backend.yaml
+          target: https://github.com/AbubakarMahmood1/DevOpsAssignment/tree/main/backstage/catalog/todo-backend.yaml
         - type: url
-          target: https://github.com/AbubakarMahmood1/todo-app/blob/main/backstage/catalog/todo-api.yaml
+          target: https://github.com/AbubakarMahmood1/DevOpsAssignment/tree/main/backstage/catalog/todo-api.yaml
         - type: url
-          target: https://github.com/AbubakarMahmood1/todo-app/blob/main/backstage/catalog/mongodb-resource.yaml
+          target: https://github.com/AbubakarMahmood1/DevOpsAssignment/tree/main/backstage/catalog/mongodb-resource.yaml

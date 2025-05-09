@@ -35,4 +35,4 @@ metadata:
   namespace: gatekeeper-system
 spec:
   interval: 1h
-  url: https://open-policy-agent.github.io/gatekeeper/charts
+  url: https://github.com/open-policy-agent/gatekeeper/blob/master/charts/gatekeeper/Chart.yaml
