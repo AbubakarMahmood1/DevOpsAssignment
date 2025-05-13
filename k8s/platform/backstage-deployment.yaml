@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: backstage
   namespace: platform
+  labels:
+    app: backstage
+    environment: dev
 spec:
   replicas: 1
   selector:
@@ -12,12 +15,20 @@ spec:
     metadata:
       labels:
         app: backstage
+        environment: dev
     spec:
       containers:
       - name: backstage
         image: backstage/backstage:latest
         ports:
         - containerPort: 7007
+        resources:
+          limits:
+            cpu: "300m"
+            memory: "256Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
         env:
         - name: POSTGRES_HOST
           value: postgres-backstage
@@ -44,6 +55,9 @@ kind: Service
 metadata:
   name: backstage
   namespace: platform
+  labels:
+    app: backstage
+    environment: dev
 spec:
   selector:
     app: backstage

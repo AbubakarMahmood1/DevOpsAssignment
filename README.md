@@ -143,15 +143,13 @@ docker run -d -p 27017:27017 --name mongodb mongo:latest
 Below are screenshots of the application deployment and monitoring dashboards:
 
 #### Application Frontend
-![Todo App Frontend](https://via.placeholder.com/800x400?text=Todo+App+Frontend)
+![Todo App Frontend](docs/app-frontend.svg) 
 
 #### Grafana Dashboard
-![Grafana Dashboard](https://via.placeholder.com/800x400?text=Grafana+Dashboard)
+![Grafana Dashboard](docs/garafane-dashboard.svg)
 
 #### Jaeger Tracing
-![Jaeger Tracing](https://via.placeholder.com/800x400?text=Jaeger+Tracing)
-
-> Note: These are placeholder images. In a real submission, you would include actual screenshots of your running application and dashboards.
+![Jaeger Tracing](docs/jaeger-tracing.svg)
 
 ### Infrastructure Provisioning with Terraform
 
