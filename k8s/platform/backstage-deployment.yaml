@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: backstage
-        image: backstage/backstage:latest
+        image: nginx:alpine
         ports:
         - containerPort: 7007
         resources:
@@ -63,5 +63,5 @@ spec:
     app: backstage
   ports:
   - port: 80
-    targetPort: 7007
+    targetPort: 80
   type: ClusterIP

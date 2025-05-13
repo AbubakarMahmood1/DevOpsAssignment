@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: backend
   namespace: prod
+  labels:
+    app: backend
+    environment: prod
 spec:
   replicas: 1
   selector:
@@ -12,9 +15,10 @@ spec:
     metadata:
       labels:
         app: backend
+        environment: prod
       annotations:
         prometheus.io/scrape: "true"
-        prometheus.io/port: "9464"
+        prometheus.io/port: "5000"
         prometheus.io/path: "/metrics"
     spec:
       containers:

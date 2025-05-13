@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: otel-collector
   namespace: monitoring
+  labels:
+    app: otel-collector
+    environment: monitoring
 spec:
   replicas: 1
   selector:
@@ -10,12 +13,17 @@ spec:
       app: otel-collector
   template:
     metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8889"
+        prometheus.io/path: "/metrics"
       labels:
         app: otel-collector
+        environment: monitoring
     spec:
       containers:
       - name: otel-collector
-        image: otel/opentelemetry-collector-contrib:0.94.0
+        image: otel/opentelemetry-collector-contrib:0.80.0
         args:
         - --config=/conf/otel-collector-config.yaml
         ports:
@@ -27,11 +35,11 @@ spec:
           mountPath: /conf
         resources:
           limits:
-            cpu: 200m
-            memory: 512Mi
-          requests:
             cpu: 100m
-            memory: 256Mi
+            memory: 300Mi
+          requests:
+            cpu: 50m
+            memory: 200Mi
       volumes:
       - name: otel-collector-config
         configMap:
@@ -42,6 +50,9 @@ kind: Service
 metadata:
   name: otel-collector
   namespace: monitoring
+  labels:
+    app: otel-collector
+    environment: monitoring
 spec:
   ports:
   - name: otlp-grpc

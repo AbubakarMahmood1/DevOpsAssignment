@@ -24,23 +24,20 @@ data:
         send_batch_size: 1024
       memory_limiter:
         check_interval: 1s
-        limit_mib: 512
-        spike_limit_mib: 128
+        limit_mib: 300
+        spike_limit_mib: 100
 
     exporters:
       logging:
         loglevel: info
       
-      jaeger:
-        endpoint: jaeger-collector:14250
-        tls:
-          insecure: true
+      otlphttp:
+        endpoint: http://jaeger:14268/api/traces
 
       prometheus:
         endpoint: 0.0.0.0:8889
         namespace: todo_app
         send_timestamps: true
-        metric_expiration: 180m
         resource_to_telemetry_conversion:
           enabled: true
 
@@ -49,7 +46,7 @@ data:
         traces:
           receivers: [otlp]
           processors: [memory_limiter, batch]
-          exporters: [logging, jaeger]
+          exporters: [logging, otlphttp]
         metrics:
           receivers: [otlp]
           processors: [memory_limiter, batch]

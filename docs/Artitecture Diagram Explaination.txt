@@ -1,0 +1,77 @@
+Main Components:
+1. AWS Cloud & VPC
+
+What it is: The cloud environment where everything runs
+Purpose: Provides infrastructure for all our services
+
+2. EKS Cluster
+
+What it is: Kubernetes cluster managed by AWS
+Purpose: Orchestrates all our containers and services
+
+3. Namespaces (The colored boxes)
+
+Monitoring Namespace (Yellow box)
+
+Contains: Prometheus, Grafana, Jaeger, OpenTelemetry Collector
+Purpose: Observes and monitors everything
+
+
+Platform Namespace (Blue box)
+
+Contains: Backstage, ArgoCD, OPA/Gatekeeper
+Purpose: Provides tools for developers and enforces policies
+
+
+Production/Development Namespaces (Green/Red boxes)
+
+Contains: Frontend, Backend, MongoDB
+Purpose: Runs the actual application in different environments
+
+
+
+4. Service Mesh (Gray bar)
+
+What it is: Istio service mesh
+Purpose: Manages traffic between services and provides security
+
+Information Flow:
+1. Developer Workflow
+
+Developers work on code → Push to GitHub
+GitHub Actions runs tests and builds images
+ArgoCD detects changes and deploys to the cluster
+Gatekeeper checks if deployments follow policies
+
+2. Observability Flow
+
+Application components send telemetry data to OpenTelemetry Collector
+Collector forwards:
+
+Metrics to Prometheus
+Traces to Jaeger
+
+
+Prometheus data is visualized in Grafana dashboards
+
+3. User Access Flow
+
+Users access the application through AWS Load Balancer
+Load Balancer routes to Istio Gateway
+Istio routes traffic to appropriate services
+Backend services interact with MongoDB
+
+4. Platform Management Flow
+
+Developers use Backstage to discover services and APIs
+ArgoCD ensures deployed state matches Git repository
+Gatekeeper enforces policies on all resources
+All components report metrics for monitoring
+
+Key Integrations:
+
+ArgoCD + Git = Ensures deployments match repository state
+Backstage + Services = Provides service catalog and documentation
+OpenTelemetry + Apps = Collects metrics and traces from all services
+Gatekeeper + Deployments = Enforces organizational standards
+Istio + Services = Manages network traffic and security
